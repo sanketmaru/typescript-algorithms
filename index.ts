@@ -9,6 +9,7 @@ import { longestIncreasingSubsequence as lis } from './dynamic-programming/longe
 
 import { createAdjacentList, addEdge } from './graphs/common';
 import { dfs } from './graphs/dfs';
+import { bfs } from './graphs/bfs';
 
 const arr = [1, 2, 33, 31, 1, 2, 63, 123, 6, 32, 943, 346, 24];
 const arr1 = [10, 5, 2, 4];
@@ -86,7 +87,12 @@ function bfsExecute() {
   addEdge(adj, 1, 3);
   addEdge(adj, 3, 4);
   addEdge(adj, 2, 4);
+  let visitedArr = [];
+  for (let i = 0; i < size; i++) {
+    visitedArr[i] = false;
+  }
   console.log('Adj list is ', adj);
+  console.log('Breadth first search is', bfs(adj, visitedArr, 0));
 }
 
 function execute(callback) {

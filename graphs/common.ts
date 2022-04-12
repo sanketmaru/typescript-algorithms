@@ -1,7 +1,7 @@
 /**
  * Creates the adjacentList of the graph
  */
-export function createAdjacentList(size: number) {
+export function createAdjacentList(size: number): number[][] {
   let arr = [];
 
   for (let i = 0; i < size; i++) {
@@ -11,7 +11,7 @@ export function createAdjacentList(size: number) {
   return arr;
 }
 
-export function addEdge(list: number[][], u: number, v: number) {
+export function addEdge(list: number[][], u: number, v: number): void {
   const arr = list[u];
   arr.push(v);
   const arr1 = list[v];
