@@ -11,6 +11,8 @@ import { createAdjacentList, addEdge } from './graphs/common';
 import { dfs } from './graphs/dfs';
 import { bfs } from './graphs/bfs';
 
+import { Heap } from './heap/heap';
+
 const arr = [1, 2, 33, 31, 1, 2, 63, 123, 6, 32, 943, 346, 24];
 const arr1 = [10, 5, 2, 4];
 
@@ -95,9 +97,22 @@ function bfsExecute() {
   console.log('Breadth first search is', bfs(adj, visitedArr, 0));
 }
 
+function minHeapExecute() {
+  const heap = new Heap(11);
+  // heap.insert(10);
+  // heap.insert(15);
+  // heap.insert(40);
+  // heap.insert(20);
+  // heap.insert(50);
+  // heap.insert(45);
+  // heap.insert(25);
+  // heap.insert(100);
+  heap.print();
+}
+
 function execute(callback) {
   console.log('Executing algorithm', callback.name);
   callback();
 }
 
-execute(bfsExecute);
+execute(minHeapExecute);
