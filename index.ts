@@ -99,15 +99,33 @@ function bfsExecute() {
 
 function minHeapExecute() {
   const heap = new Heap(11);
-  // heap.insert(10);
-  // heap.insert(15);
-  // heap.insert(40);
-  // heap.insert(20);
-  // heap.insert(50);
-  // heap.insert(45);
-  // heap.insert(25);
-  // heap.insert(100);
+  heap.insert(3);
+  heap.insert(2);
+  heap.insert(15);
+  heap.insert(20);
   heap.print();
+  console.log('Extracting minimum of heap', heap.extractMin());
+  heap.print();
+
+
+  const heap1 = new Heap(11);
+  heap1.insert(10);
+  heap1.insert(15);
+  heap1.insert(40);
+  heap1.insert(20);
+  heap1.insert(50);
+  heap1.insert(45);
+  heap1.insert(25);
+  heap1.insert(100);
+  heap1.print();
+  console.log('Extracting minimum of heap', heap1.extractMin());
+  heap1.print();
+}
+
+function heapSortExecute() {
+  const heap = new Heap(11);
+  const arr: number[] = [12, 11, 13, 5, 6, 7];
+  heap.sortAsc(arr);
 }
 
 function execute(callback) {
@@ -115,4 +133,4 @@ function execute(callback) {
   callback();
 }
 
-execute(minHeapExecute);
+execute(heapSortExecute);
