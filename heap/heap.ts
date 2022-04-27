@@ -18,7 +18,10 @@ export class Heap {
   parent(i: number): number {
     return Math.floor((i - 1) / 2);
   }
-
+  /**
+   * This will insert in a min-heap.
+   * @param i
+   */
   insert(i: number) {
     if (this.size === this.capacity) {
       throw new Error(
@@ -42,7 +45,7 @@ export class Heap {
    * Given an array of numbers which are not in order of max heap,
    * build the heap.
    */
-  buildMaxHeap(inputArr: number[], n: number) {
+  buildMaxHeap(inputArr: number[], n: number): void {
     for (let k = n / 2 - 1; k >= 0; k--) {
       this.maxHeapify(inputArr, n, k);
     }
@@ -53,20 +56,21 @@ export class Heap {
    * Given an array of numbers which are not in order of min heap,
    * build the heap.
    */
-  buildMinHeap() {
-    for (let k = (((this.size - 1) - 1) / 2); k >= 0; k--) {
-      this.minHeapify(k);
+  buildMinHeap(inputArr: number[], n: number): void {
+    for (let k = (((n - 1) - 1) / 2); k >= 0; k--) {
+      this.minHeapify(inputArr, n, k);
     }
-
   }
 
   /**
-   * Produce a min heap when root is violating the min-heap
+   * Produce a min heap when root is violating the min-heap.
    * Min Heap is a heap with complete binary tree and a node value
    * is less than its descendants.
+   * @param inputArr 
+   * @param n 
    * @param i 
    */
-  minHeapify(i: number) {
+  minHeapify(inputArr: number[], n: number, i: number): void {
     // i is supposed to be zero as its violating min heap.
     // replace i with size-1 i.e last node in the tree
 
@@ -74,22 +78,28 @@ export class Heap {
     const rightIndex = this.right(i);
     let smallest = i;
 
-    if (leftIndex < this.size && this.arr[leftIndex] < this.arr[i]) {
+    if (leftIndex < n && inputArr[leftIndex] < inputArr[i]) {
       smallest = leftIndex;
     }
 
-    if (rightIndex < this.size && this.arr[rightIndex] < this.arr[smallest]) {
+    if (rightIndex < n && inputArr[rightIndex] < inputArr[smallest]) {
       smallest = rightIndex;
     }
 
     if (smallest !== i) {
-      let temp = this.arr[i];
-      this.arr[i] = this.arr[smallest];
-      this.arr[smallest] = temp;
-      this.minHeapify(smallest);
+      let temp = inputArr[i];
+      inputArr[i] = inputArr[smallest];
+      inputArr[smallest] = temp;
+      this.minHeapify(inputArr, n, smallest);
     }
   }
-  maxHeapify(inputArr: number[], n: number, i: number) {
+  /**
+   * 
+   * @param inputArr 
+   * @param n is the size of heap to heapify
+   * @param i is the index to start heapify with 
+   */
+  maxHeapify(inputArr: number[], n: number, i: number): void {
     const leftIndex = this.left(i);
     const rightIndex = this.right(i);
     let largest = i;
@@ -122,7 +132,7 @@ export class Heap {
     this.arr[0] = this.arr[this.size - 1];
     this.arr[this.size - 1] = temp;
     this.size--;
-    this.minHeapify(0);
+    this.minHeapify(this.arr, this.size, 0);
     return temp;
   }
 
@@ -139,6 +149,38 @@ export class Heap {
       sortArr[i] = temp;
       this.maxHeapify(sortArr, i, 0);
     }
-    console.log('Heap Sort is', sortArr);
+    console.log('Heap Sort Asc is', sortArr);
+  }
+
+  sortDesc(sortArr: number[]) {
+    const n = sortArr.length;
+    this.buildMinHeap(sortArr, n);
+    for (let i = n - 1; i > 0; i--) {
+      const temp = sortArr[0];
+      sortArr[0] = sortArr[i];
+      sortArr[i] = temp;
+      this.minHeapify(sortArr, i, 0);
+    }
+    console.log('Heap Sort Desc is', sortArr);
+  }
+
+  maxItems(arr: number[], sum: number) {
+    let res = 0;
+    this.arr = arr;
+    this.size = this.arr.length;
+    for (let i = 0; i < arr.length; i++) {
+      const min = this.extractMin();
+      if (min <= sum) {
+        sum -= min;
+        res++;
+      } else {
+        break;
+      }
+    }
+    return res;
+  }
+
+  get(): number[] {
+    return this.arr;
   }
 }
